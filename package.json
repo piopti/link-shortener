@@ -1,0 +1,25 @@
+{
+  "name": "link-shortener",
+  "version": "1.0.0",
+  "description": "Website That Shortens URLS and Serves Shortened URLS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piopti/link-shortener.git"
+  },
+  "author": "piopti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piopti/link-shortener/issues"
+  },
+  "homepage": "https://github.com/piopti/link-shortener#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0"
+  }
+}

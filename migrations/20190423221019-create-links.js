@@ -9,8 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       url: {
-        type: Sequelize.STRING,
-        validate: {isUrl: true}
+        type: Sequelize.STRING
       },
       hash: {
         type: Sequelize.STRING

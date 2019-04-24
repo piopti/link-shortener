@@ -24,6 +24,7 @@
     "hashids": "^1.2.2",
     "pg": "^7.10.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.7.4"
+    "sequelize": "^5.7.4",
+    "validator": "^10.11.0"
   }
 }

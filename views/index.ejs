@@ -3,6 +3,7 @@
 
 <%- contentFor("body") %>
     <h2>We can help you shorten your long URLs</h2>
+    <p class="message"><%= message %></p>
     <form method="POST" action="/links">
         <label for="longURL">Long URL: </label>
         <textarea name="longURL" cols="40", rows="8"></textarea>

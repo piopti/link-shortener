@@ -9,23 +9,41 @@ app.use(express.static(__dirname + "/static"));
 var db = require("./models");
 var Hashids = require('hashids');
 var hashids = new Hashids();
-var curId = 1;
+var nextId;  //next available id in hash table
+var validator = require("validator");
 
 app.get("/",function(req,res) {
-    res.render("index.ejs");
+    if (!nextId) {
+        console.log("NextId not yet inititalized. Initializing...");
+        db.links.max("id").then(function(max) {
+            if (max) {
+                nextId = max + 1;
+                console.log("Entries found. NextId: " + nextId);
+            } else {
+                nextId = 1;
+                console.log("No entries. NextId: " + nextId);
+            }
+        });
+    }
+    res.render("index.ejs",{message:""});
 });
 
 app.post("/links",function(req,res) {
-    var hash = hashids.encode(curId++);
+    var hash = hashids.encode(nextId++);
     console.log("Form data:");
     console.log(req.body.longURL);
     console.log("Hash:");
     console.log(hash);
-    db.links.create({url:req.body.longURL, hash:hash})
-        .then(function(link){
-            console.log("Added URL to Database");
-            res.redirect("/links/" + link.id);
-        });
+    if (validator.isURL(req.body.longURL, {require_protocol: true})) {
+        db.links.create({url:req.body.longURL, hash:hash})
+            .then(function(link){
+                console.log("Added URL to Database");
+                res.redirect("/links/" + link.id);
+            });
+    } else {
+        console.log("Error: Not a valid URL");
+        res.render("index.ejs",{message:"Oops. You need to enter a valid URL with protocol. E.g. http://www.example.com"});
+    }
     
 });
 
